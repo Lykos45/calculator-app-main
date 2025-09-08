@@ -1,4 +1,3 @@
-
 // Named function for addition
 function add(a, b) {
     return a + b;
@@ -32,13 +31,21 @@ const calculator = {
     divide: divide,
 
     updateEquation: function(value) {
-        this.equation += value + " "; // add space so parsing works
+        // If the value is an operator, add spaces around it
+        if (['+', '-', '*', '/'].includes(value)) {
+            this.equation += ` ${value} `;
+        } else {
+            // Otherwise, append digits/decimal points directly
+            this.equation += value;
+        }
         document.getElementById('equation').value = this.equation;
     },
+
     clearEquation: function() {
         this.equation = '';
         document.getElementById('equation').value = this.equation;
     },
+
     calculate: function() {
         const equation = this.equation.trim().split(' ');
         const a = parseFloat(equation[0]);
